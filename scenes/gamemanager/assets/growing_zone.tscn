@@ -1,0 +1,117 @@
+[gd_scene load_steps=18 format=3 uid="uid://bj2nchaqrssi5"]
+
+[ext_resource type="Script" path="res://scripts/gamemanager/assets/GrowingZone.gd" id="1_tjqyo"]
+[ext_resource type="Texture2D" uid="uid://b0w6is3no0bmu" path="res://assets/game scene/house/farm tileset/farmTilemap(1).png" id="2_uwwwc"]
+[ext_resource type="Texture2D" uid="uid://d3y7rnaa0rvys" path="res://assets/game scene/plants/blank.png" id="3_0gs82"]
+[ext_resource type="Texture2D" uid="uid://dgdx272xtm637" path="res://assets/game scene/plants/okame cherry blossom/1.png" id="3_xh7nx"]
+[ext_resource type="Texture2D" uid="uid://muri610hr0jg" path="res://assets/game scene/plants/okame cherry blossom/2.png" id="4_c451t"]
+[ext_resource type="Texture2D" uid="uid://t76ceo1na006" path="res://assets/game scene/plants/okame cherry blossom/3.png" id="5_ajvqs"]
+[ext_resource type="Texture2D" uid="uid://beouh87godhei" path="res://assets/game scene/plants/okame cherry blossom/4.png" id="6_xfhmx"]
+[ext_resource type="Texture2D" uid="uid://c5by2e40m5v5n" path="res://assets/game scene/plants/okame cherry blossom/5.png" id="7_vjp0k"]
+[ext_resource type="Texture2D" uid="uid://bn0uw0qqt1l0j" path="res://assets/game scene/plants/weeping cherry blossom/1.png" id="8_h30x3"]
+[ext_resource type="Texture2D" uid="uid://b1l1uib60sriw" path="res://assets/game scene/plants/weeping cherry blossom/2.png" id="9_a7xqp"]
+[ext_resource type="Texture2D" uid="uid://bw4mp4h3mtscu" path="res://assets/game scene/plants/weeping cherry blossom/3.png" id="10_5jvf3"]
+[ext_resource type="Texture2D" uid="uid://demuviijt2tv2" path="res://assets/game scene/plants/weeping cherry blossom/4.png" id="11_3pev3"]
+[ext_resource type="Texture2D" uid="uid://dmarc7feb0ohx" path="res://assets/game scene/plants/weeping cherry blossom/5.png" id="12_5cyam"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57vwt"]
+atlas = ExtResource("2_uwwwc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6ct5x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57vwt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_08gab"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_0gs82")
+}],
+"loop": false,
+"name": &"none",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_xh7nx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c451t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ajvqs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_xfhmx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_vjp0k")
+}],
+"loop": false,
+"name": &"okame_growth",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_h30x3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_a7xqp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_5jvf3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_3pev3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_5cyam")
+}],
+"loop": false,
+"name": &"weeping_growth",
+"speed": 0.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_te13d"]
+size = Vector2(26, 23)
+
+[node name="GrowingZone" type="StaticBody2D"]
+z_index = -1
+script = ExtResource("1_tjqyo")
+
+[node name="hoeLand" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, -2.5)
+scale = Vector2(1.875, 1.6875)
+sprite_frames = SubResource("SpriteFrames_6ct5x")
+
+[node name="plant" type="AnimatedSprite2D" parent="."]
+position = Vector2(4, -45)
+scale = Vector2(0.74, 0.863281)
+sprite_frames = SubResource("SpriteFrames_08gab")
+animation = &"okame_growth"
+autoplay = "none"
+
+[node name="Zone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zone"]
+position = Vector2(2, -2.5)
+shape = SubResource("RectangleShape2D_te13d")
+
+[node name="okame_timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="weeping_timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[connection signal="area_entered" from="Zone" to="." method="_on_area_2d_area_entered"]
+[connection signal="mouse_entered" from="Zone" to="." method="_on_zone_mouse_entered"]
+[connection signal="timeout" from="okame_timer" to="." method="_on_okame_timer_timeout"]
+[connection signal="timeout" from="weeping_timer" to="." method="_on_weeping_timer_timeout"]

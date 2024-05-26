@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://mdja2tjo2hp0"]
+
+[ext_resource type="Texture2D" uid="uid://besbf6tky850y" path="res://assets/game scene/watering/watering.png" id="1_44htx"]
+[ext_resource type="Script" path="res://scripts/gamemanager/assets/shop/water_spray.gd" id="1_pmmnx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ckwj"]
+atlas = ExtResource("1_44htx")
+region = Rect2(0, 0, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yitec"]
+atlas = ExtResource("1_44htx")
+region = Rect2(0, 0, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq07m"]
+atlas = ExtResource("1_44htx")
+region = Rect2(32, 0, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1utgm"]
+atlas = ExtResource("1_44htx")
+region = Rect2(64, 0, 32, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7mapc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ckwj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yitec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jq07m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1utgm")
+}],
+"loop": true,
+"name": &"spray",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xssc5"]
+radius = 14.0
+
+[node name="WaterSpray" type="StaticBody2D"]
+position = Vector2(76, 45)
+script = ExtResource("1_pmmnx")
+
+[node name="waterSpraySprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7mapc")
+animation = &"spray"
+
+[node name="sprayWater" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sprayWater"]
+position = Vector2(-2, 1)
+shape = SubResource("CircleShape2D_xssc5")
+
+[connection signal="area_entered" from="sprayWater" to="." method="_on_spray_water_area_entered"]
+[connection signal="input_event" from="sprayWater" to="." method="_on_spray_water_input_event"]

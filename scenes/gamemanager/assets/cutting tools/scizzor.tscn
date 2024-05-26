@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://vs0k2ggjsypp"]
+
+[ext_resource type="Texture2D" uid="uid://cf588ppuurnyv" path="res://assets/game scene/house/cutting tools/scissors-sheet.png" id="1_fam3c"]
+[ext_resource type="Script" path="res://scripts/gamemanager/assets/cuttingtools/scizzor.gd" id="1_x86ii"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya4wk"]
+atlas = ExtResource("1_fam3c")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gr0bq"]
+atlas = ExtResource("1_fam3c")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b72el"]
+atlas = ExtResource("1_fam3c")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0vlcq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ya4wk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gr0bq")
+}],
+"loop": false,
+"name": &"cut",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b72el")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6v4ka"]
+radius = 12.0416
+
+[node name="Scizzor" type="StaticBody2D"]
+script = ExtResource("1_x86ii")
+
+[node name="scizzorSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0vlcq")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="scizzorCut" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="scizzorCut"]
+shape = SubResource("CircleShape2D_6v4ka")
+
+[connection signal="area_entered" from="scizzorCut" to="." method="_on_scizzor_cut_area_entered"]
+[connection signal="input_event" from="scizzorCut" to="." method="_on_scizzor_cut_input_event"]

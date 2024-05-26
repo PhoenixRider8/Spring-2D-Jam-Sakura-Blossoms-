@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjara5v10pa0x"]
+
+[ext_resource type="Texture2D" uid="uid://iedpy356auke" path="res://assets/game scene/plants/seed bag/okameBag.png" id="1_6dvl0"]
+[ext_resource type="Script" path="res://scripts/gamemanager/assets/cherry_seedpack.gd" id="1_40a6b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nogov"]
+atlas = ExtResource("1_6dvl0")
+region = Rect2(0, 0, 23, 23)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eyc0s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nogov")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iumip"]
+radius = 8.0
+
+[node name="Okame_seedpack" type="StaticBody2D"]
+script = ExtResource("1_40a6b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_eyc0s")
+
+[node name="Okame" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Okame"]
+shape = SubResource("CircleShape2D_iumip")
+
+[connection signal="input_event" from="Okame" to="." method="_on_area_2d_input_event"]

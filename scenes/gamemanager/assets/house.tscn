@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://du3tvuw8vxkyb"]
+
+[ext_resource type="Texture2D" uid="uid://c2yn5hmthcmob" path="res://assets/game scene/house/chimney/chimney.png" id="1_xfe4y"]
+[ext_resource type="Texture2D" uid="uid://c4ykdige4owg" path="res://assets/game scene/house/house_base/house.png" id="2_enyp8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyuv6"]
+atlas = ExtResource("1_xfe4y")
+region = Rect2(0, 0, 111, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11gmy"]
+atlas = ExtResource("1_xfe4y")
+region = Rect2(111, 0, 111, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgrka"]
+atlas = ExtResource("1_xfe4y")
+region = Rect2(222, 0, 111, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mumfp"]
+atlas = ExtResource("1_xfe4y")
+region = Rect2(333, 0, 111, 57)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r1asi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyuv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11gmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mgrka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mumfp")
+}],
+"loop": true,
+"name": &"chimney",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rww0v"]
+
+[node name="House" type="Area2D"]
+z_index = -1
+
+[node name="chimney" type="AnimatedSprite2D" parent="."]
+position = Vector2(-4, -54)
+sprite_frames = SubResource("SpriteFrames_r1asi")
+animation = &"chimney"
+autoplay = "chimney"
+
+[node name="House" type="Sprite2D" parent="."]
+scale = Vector2(2.34375, 2.1)
+texture = ExtResource("2_enyp8")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-52, -4, -52, 35, -42, 43, -42, 53, 40, 54, 40, 44, 51, 35, 52, -5, 63, -1, 67, -12, 0, -61, -31, -41, -26, -52, -19, -60, -55, -60, -64, -54, -52, -46, -49, -30, -66, -11, -66, 1, -61, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rww0v")

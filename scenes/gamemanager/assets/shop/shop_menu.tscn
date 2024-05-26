@@ -1,0 +1,197 @@
+[gd_scene load_steps=16 format=3 uid="uid://7qofvy80l5cw"]
+
+[ext_resource type="Texture2D" uid="uid://b4kffix7t38b6" path="res://assets/game scene/shop/shop_menu.png" id="1_2yjof"]
+[ext_resource type="Script" path="res://scripts/gamemanager/assets/shop/shop_menu.gd" id="1_j7e8d"]
+[ext_resource type="Texture2D" uid="uid://b0w6is3no0bmu" path="res://assets/game scene/house/farm tileset/farmTilemap(1).png" id="2_dgfko"]
+[ext_resource type="Texture2D" uid="uid://besbf6tky850y" path="res://assets/game scene/watering/watering.png" id="3_jgy48"]
+[ext_resource type="Texture2D" uid="uid://dargc1irabnv5" path="res://assets/main menu/cherry blossom/petal.png" id="4_jgikc"]
+[ext_resource type="Texture2D" uid="uid://7ucvgsftk7v1" path="res://assets/game scene/shop/navButtons.png" id="4_o254d"]
+[ext_resource type="FontFile" uid="uid://bk7361xbo187n" path="res://assets/main menu/font/8-bit Arcade In.ttf" id="5_2hyrs"]
+[ext_resource type="Texture2D" uid="uid://4td1lgenscoa" path="res://assets/main menu/cherry blossom/white_petal.png" id="5_er77p"]
+[ext_resource type="Texture2D" uid="uid://b86egw1iqdeh1" path="res://assets/game scene/house/cutting tools/wood.png" id="6_bpibo"]
+[ext_resource type="Texture2D" uid="uid://b1tdionh5wgb3" path="res://assets/game scene/shop/coin.png" id="6_s1n5c"]
+[ext_resource type="StyleBox" uid="uid://hoo8su7dcwde" path="res://assets/main menu/button/shop_menu.tres" id="6_t4p4c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0grd"]
+atlas = ExtResource("2_dgfko")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y746r"]
+atlas = ExtResource("3_jgy48")
+region = Rect2(0, 0, 32, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_udij4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0grd")
+}],
+"loop": true,
+"name": &"land",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y746r")
+}],
+"loop": true,
+"name": &"water",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1cjak"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_jgikc")
+}],
+"loop": true,
+"name": &"okame",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_er77p")
+}],
+"loop": true,
+"name": &"white",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_bpibo")
+}],
+"loop": true,
+"name": &"wood",
+"speed": 5.0
+}]
+
+[node name="ShopMenu" type="StaticBody2D"]
+visible = false
+script = ExtResource("1_j7e8d")
+
+[node name="ShopMenu" type="Sprite2D" parent="."]
+position = Vector2(216, 204)
+texture = ExtResource("1_2yjof")
+
+[node name="Prices" type="Node2D" parent="."]
+
+[node name="Coin" type="Sprite2D" parent="Prices"]
+position = Vector2(340, 255)
+texture = ExtResource("6_s1n5c")
+
+[node name="sell" type="Node2D" parent="Prices"]
+
+[node name="Label1" type="Label" parent="Prices/sell"]
+visible = false
+offset_left = 264.0
+offset_top = 234.0
+offset_right = 345.0
+offset_bottom = 270.0
+theme_override_fonts/font = ExtResource("5_2hyrs")
+theme_override_font_sizes/font_size = 54
+text = "10"
+
+[node name="Label2" type="Label" parent="Prices/sell"]
+visible = false
+offset_left = 266.0
+offset_top = 235.0
+offset_right = 347.0
+offset_bottom = 271.0
+theme_override_fonts/font = ExtResource("5_2hyrs")
+theme_override_font_sizes/font_size = 54
+text = "30"
+
+[node name="buy" type="Node2D" parent="Prices"]
+
+[node name="Label1" type="Label" parent="Prices/buy"]
+offset_left = 244.0
+offset_top = 234.0
+offset_right = 325.0
+offset_bottom = 270.0
+theme_override_fonts/font = ExtResource("5_2hyrs")
+theme_override_font_sizes/font_size = 54
+text = "200"
+
+[node name="Label2" type="Label" parent="Prices/buy"]
+visible = false
+offset_left = 244.0
+offset_top = 234.0
+offset_right = 325.0
+offset_bottom = 270.0
+theme_override_fonts/font = ExtResource("5_2hyrs")
+theme_override_font_sizes/font_size = 54
+text = "100"
+
+[node name="Nav Buttons" type="Node2D" parent="."]
+
+[node name="Left" type="TextureButton" parent="Nav Buttons"]
+offset_left = 254.0
+offset_top = 281.0
+offset_right = 294.0
+offset_bottom = 321.0
+texture_normal = ExtResource("4_o254d")
+
+[node name="Right" type="TextureButton" parent="Nav Buttons"]
+offset_left = 339.0
+offset_top = 277.0
+offset_right = 379.0
+offset_bottom = 317.0
+texture_normal = ExtResource("4_o254d")
+flip_h = true
+
+[node name="Buy" type="Button" parent="Nav Buttons"]
+offset_left = 247.0
+offset_top = 343.0
+offset_right = 384.0
+offset_bottom = 409.0
+theme_override_fonts/font = ExtResource("5_2hyrs")
+theme_override_font_sizes/font_size = 86
+text = "BUY"
+
+[node name="Sell" type="Button" parent="Nav Buttons"]
+offset_left = 21.0
+offset_top = 344.0
+offset_right = 201.0
+offset_bottom = 410.0
+theme_override_fonts/font = ExtResource("5_2hyrs")
+theme_override_font_sizes/font_size = 86
+text = "SELL"
+
+[node name="OkColor" type="ColorRect" parent="Nav Buttons"]
+offset_left = 264.0
+offset_top = 299.0
+offset_right = 355.0
+offset_bottom = 316.0
+color = Color(0.113725, 0.686275, 0.113725, 1)
+
+[node name="Ok" type="Button" parent="Nav Buttons"]
+offset_left = 258.0
+offset_top = 298.0
+offset_right = 361.0
+offset_bottom = 314.0
+theme_override_fonts/font = ExtResource("5_2hyrs")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("6_t4p4c")
+text = "CONFIRM BUY"
+
+[node name="ShopItems" type="Node2D" parent="."]
+
+[node name="Buy_items" type="AnimatedSprite2D" parent="ShopItems"]
+position = Vector2(302, 196)
+scale = Vector2(2.39062, 2.77083)
+sprite_frames = SubResource("SpriteFrames_udij4")
+animation = &"water"
+
+[node name="Sell_items" type="AnimatedSprite2D" parent="ShopItems"]
+visible = false
+position = Vector2(302, 200.5)
+scale = Vector2(5, 4.0625)
+sprite_frames = SubResource("SpriteFrames_1cjak")
+animation = &"wood"
+
+[connection signal="pressed" from="Nav Buttons/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="Nav Buttons/Right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="Nav Buttons/Buy" to="." method="_on_buy_pressed"]
+[connection signal="pressed" from="Nav Buttons/Sell" to="." method="_on_sell_pressed"]
+[connection signal="pressed" from="Nav Buttons/Ok" to="." method="_on_ok_pressed"]

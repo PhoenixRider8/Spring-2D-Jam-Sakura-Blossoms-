@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://duf240gofafv7"]
+
+[ext_resource type="Script" path="res://scripts/gamemanager/assets/shop/shop.gd" id="1_sl5dk"]
+[ext_resource type="Texture2D" uid="uid://b0kft4b1irsxy" path="res://assets/game scene/shop/shop.png" id="2_a4sm6"]
+[ext_resource type="PackedScene" uid="uid://mdja2tjo2hp0" path="res://scenes/gamemanager/assets/planting tools/water_spray.tscn" id="3_w255u"]
+[ext_resource type="PackedScene" uid="uid://bm8q2ysflfy0x" path="res://scenes/gamemanager/assets/planting tools/land.tscn" id="4_eiyct"]
+[ext_resource type="PackedScene" uid="uid://7qofvy80l5cw" path="res://scenes/gamemanager/assets/shop/shop_menu.tscn" id="5_lct2c"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0rrla"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a4sm6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_80hbm"]
+radius = 54.0833
+
+[node name="shop" type="StaticBody2D"]
+position = Vector2(146, 115)
+script = ExtResource("1_sl5dk")
+
+[node name="shopSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0rrla")
+
+[node name="collision_boundary" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-31, -98, -90, -51, -91, 34, -81, 52, -38, 58, -37, 41, -26, 42, -25, 15, 6, 31, 18, 32, 36, 32, 46, 29, 56, 24, 81, 29, 78, -10, 88, -9, 75, -32, 81, -48, 38, -76)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+z_index = -1
+position = Vector2(26, 14)
+shape = SubResource("CircleShape2D_80hbm")
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="buy" type="Node2D" parent="Items"]
+
+[node name="WaterSpray" parent="Items/buy" instance=ExtResource("3_w255u")]
+visible = false
+position = Vector2(152, 38)
+
+[node name="land" parent="Items/buy" instance=ExtResource("4_eiyct")]
+visible = false
+position = Vector2(123, 18)
+
+[node name="sell (sold from global)" type="Node2D" parent="Items"]
+visible = false
+
+[node name="ShopMenu" parent="." instance=ExtResource("5_lct2c")]
+position = Vector2(42, -188)
+scale = Vector2(0.465, 0.465)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=3 uid="uid://bu031jr2236ni"]
+
+[ext_resource type="Texture2D" uid="uid://ddwvbn23sghpw" path="res://assets/game scene/house/cutting tools/axe-sheet.png" id="1_nfk50"]
+[ext_resource type="Script" path="res://scripts/gamemanager/assets/cuttingtools/axe.gd" id="1_wt78d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50peg"]
+atlas = ExtResource("1_nfk50")
+region = Rect2(0, 0, 42, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exhme"]
+atlas = ExtResource("1_nfk50")
+region = Rect2(42, 0, 42, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_chw8s"]
+atlas = ExtResource("1_nfk50")
+region = Rect2(84, 0, 42, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6h731"]
+atlas = ExtResource("1_nfk50")
+region = Rect2(126, 0, 42, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qtsl"]
+atlas = ExtResource("1_nfk50")
+region = Rect2(168, 0, 42, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wf8s"]
+atlas = ExtResource("1_nfk50")
+region = Rect2(0, 0, 42, 41)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ge0lh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50peg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exhme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_chw8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6h731")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3qtsl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50peg")
+}],
+"loop": false,
+"name": &"cut",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wf8s")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0anqi"]
+radius = 8.0
+
+[node name="Axe" type="StaticBody2D"]
+script = ExtResource("1_wt78d")
+
+[node name="axeSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ge0lh")
+animation = &"cut"
+
+[node name="axeCut" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="axeCut"]
+position = Vector2(4, 4)
+shape = SubResource("CircleShape2D_0anqi")
+
+[connection signal="area_entered" from="axeCut" to="." method="_on_area_2d_area_entered"]
+[connection signal="input_event" from="axeCut" to="." method="_on_axe_cut_input_event"]

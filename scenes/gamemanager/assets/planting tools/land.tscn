@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://bm8q2ysflfy0x"]
+
+[ext_resource type="Script" path="res://scripts/gamemanager/assets/shop/land.gd" id="1_hbet3"]
+[ext_resource type="Texture2D" uid="uid://b0w6is3no0bmu" path="res://assets/game scene/house/farm tileset/farmTilemap(1).png" id="1_kf85l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ph1jd"]
+atlas = ExtResource("1_kf85l")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nki12"]
+atlas = ExtResource("1_kf85l")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y2lme"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ph1jd")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nki12")
+}],
+"loop": true,
+"name": &"plow",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q54wl"]
+size = Vector2(14, 14)
+
+[node name="land" type="StaticBody2D"]
+position = Vector2(14, 11)
+script = ExtResource("1_hbet3")
+
+[node name="landSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_y2lme")
+animation = &"plow"
+
+[node name="plowLand" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="plowLand"]
+shape = SubResource("RectangleShape2D_q54wl")
+
+[connection signal="area_entered" from="plowLand" to="." method="_on_plow_land_area_entered"]
+[connection signal="input_event" from="plowLand" to="." method="_on_plow_land_input_event"]
